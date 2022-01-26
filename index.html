@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Weather Dashboard</title>
+</head>
+
+    <header class="container-fluid bg-primary text-center"><h1>Weather App</h1>
+    </header>
+    <main class="row">
+    <body class="container-flud">
+        <div class="col-12 p-2 border-0 col-lg-3 bg-primary text-light sticky-top d-flex flex-column p-4 p-lg-3">
+   
+          
+          <div class="card">
+            <h3 class=" bg-success border-0 text-uppercase">Search Weather</h3>
+            <div class="input-group mb-6">
+              <input name="city-name" id="cityname" type="text" autofocus="true" class="form-control"/>
+              <button type="button" class="input-group-append btn text-white bg-primary">Find Weather</button>
+         
+
+        </div> 
+          </div>
+        </div>
+        <div class="col-12 col-lg-9 p-5 border-0 d-flex justify-content-md-center text-center">
+            <div class="justify-space-between ">Weather 1</div>
+            <div class="justify-space-between card">Weather 2</div>
+            <div class="justify-space-between card">Weather 3</div>
+            <div class="justify-space-between card">Weather 4</div>
+        </div>
+      </main>
+      
+        <div class=" flex-row justify-space-between">
+          <div class="row flex-row  col-12">
+         
+      
+          <div class="row  justify-content-center col-12 d-flex ">
+              <h3 class="  justify-content-center text-uppercase">List of Cities Searched</h3>
+              <div class="flex-row bg-danger card-body col-12 col-md-12 " id="">
+                Cities and weather Displayed HERE
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-12 col-md-8">
+            <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+            <div id="repos-container" class="list-group">
+      
+            </div>
+          </div>
+        </div>
+
+        <script src="js/script.js"></script>
+</body>
+
+</html>
