@@ -1,3 +1,8 @@
 * {
     box-sizing: border-box;
 }
+
+.list-weather {
+    color: gold;
+    font-size: 23px;
+}

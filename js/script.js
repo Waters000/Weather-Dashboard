@@ -18,7 +18,7 @@ var longitude;
 var apiKey = "e66db7319dc01000529ad3640c6a3281";
 
 var getWeather = function(city) {
-    // 
+    // Single day weather info
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
 
     fetch(apiUrl).then(function (response) {
@@ -56,66 +56,83 @@ var displayWeather = function(city) {
    
    var iconImage = document.createElement('img')
    $("#image").append(iconImage)
-   iconImage.src = "https://openweathermap.org/img/wn/" + city.list[0].weather[0].icon +"@2x.png"
+   iconImage.src = "https://openweathermap.org/img/wn/" + city.list[0].weather[0].icon +"@4x.png";
 
+    var cityName = document.createElement('h2')
+    cityName.classList = " flex-row align-left";
+    cityName.textContent = city.city.name;
+   var iconImage = document.createElement('img')
+   iconImage.src = "https://openweathermap.org/img/wn/" + city.list[0].weather[0].icon +"@4x.png";
    var temperature = document.createElement('p')
-   temperature.textContent =  "Temperature:" + city.list[0].main.temp
+   temperature.textContent =  "Temperature: " + parseInt((((city.list[0].main.temp) - 273.15) * (9/5)) + 32) + "*F";
   var humidity = document.createElement('p')
-  humidity.textContent = "Humity" + city.list[0].main.humidity
+  humidity.textContent = "Humity: " + city.list[0].main.humidity + "%";
   var windSpeed = document.createElement('p')
-  windSpeed.textContent = "Humity" + city.list[0].wind.speed
-  var groundLevel = document.createElement('p')
-  groundLevel.textContent = "UV" + city.list[0].main.grnd_level
+  windSpeed.textContent = "Wind Speed: " + parseInt(city.list[0].wind.speed) + " m/hr";
+  var population = document.createElement('p')
+  population.textContent = "Population: " + (city.city.population).toLocaleString("en-US") + " People.";
 
 
-  $(".list-weather").append(temperature, humidity, windSpeed, groundLevel )
+  $("#city-weather").append(cityName, iconImage, temperature, humidity, windSpeed, population )
+
+  var lat = city.city.coord.lat
+  var lon = city.city.coord.lon
+
+  var fiveDayApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" +lat + "&lon=" + lon + "&appid=" + apiKey;
 
 
-  
-    
+  fetch(fiveDayApi).then(function (response) {
+    // request was success
+    if (response.ok) {
+        response.json().then(function(secondFeed) {
+       // adds UV to top part of weather
+            var uvIndex = document.createElement('p')
+            uvIndex.textContent = "UV Index: " + secondFeed.current.uvi
+            $("#city-weather").append(uvIndex)
 
-    // let currentWeather = `
-    // <h3>${city.city.name} ${currentMoment}<img src="${iconImage}"></h3>
-    // <ul class="list-unstyled">
-    //     <li>Temperature: ${city.city.name}&#8457;</li>
-    //     <li>Humidity: ${city.city.sunrise}%</li>
-    //     <li>Wind Speed: ${city.city.sunrise} mph</li>
-    //     <li id="uvIndex">UV Index:</li>
-    // </ul>`
-  
+          for (var i =0; i < 6; i++) {
 
-   // weatherContainer = document.createElement("div");
-   // weatherContainer.textContent = currentWeather;
+              
+            fiveDayImage = document.createElement('img')
+               fiveDayImage.src = "https://openweathermap.org/img/wn/" + secondFeed.daily[i].weather[0].icon +".png";
+                 var clouds = document.createElement('p');
+                clouds.textContent = "clouds: " + secondFeed.daily[i].clouds;
+                var date = document.createElement('p')
+                date.textContent = secondFeed.daily[i].dt
+           //     image.src: "https://openweathermap.org/img/wn/" + secondFeed.daily[i].weather[0].icon +".png";
+                console.log(date, clouds, fiveDayImage)
 
-
-   
-  //  citySearch.textContent = city.main.temp;
-//  image.textContent = iconImage
-//  image.textContent = currentWeather
-
-
-// citySearch.textContent = city['city']['name'];
-//  image.setAttribute("src", "https://openweathermap.org/img/w/" + city['list'][0]['weather'][0]['icon'] + ".png")
-//  image.setAttribute = city['list'][0]['main']['feels_like']
-//   weatherContainer.textContent = city['list'][0]['weather']['icon'];
-//   weatherContainer.textContent = city['city']['sunrise'];
-//   weatherContainer.textContent = city['city']['sunrise'];
- 
-    
- 
-
-    // var weatherEl = document.createElement("a");
-    // weatherEl.classList = "list-item flex-row justify-space-between align-center";
-    // weatherEl.setAttribute("href",);
-
-    // weatherEl.appendChild(weatherCity);
-
-   // console.log(weatherCity)
-
-   
-// loop over city
+                  $(".list-group").append(fiveDayImage, clouds, date )
+        };
+               
+            
+          
+                
+             
+           
+            
+         
 
 
+       //  var UvIndex = data.value;
+         console.log(secondFeed)
+            fiveDay(lat, lon);
+         
+        });
+    } else {
+        alert("No Weather found");
+    }
+})
+    .catch(function (error) {
+
+    })
+
+
+}
+
+
+var fiveDay = function(lat, lon){
+console.log(lat, lon)
 }
 
 
