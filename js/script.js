@@ -9,13 +9,16 @@ var weatherContainer = document.getElementById('weather-container');
 var citySearch = document.getElementById('city-search-term');
 var image = document.getElementById('image');
 var listGroupEl = document.querySelector(".list-group")
+var cityListEl = document.querySelector(".city-list")
 var divblockEl = document.getElementById('divblock');
 
 
-var currentMoment = moment().format('dddd - MMM Do YY');
-
+var currentMomentkey = moment().format('h:mm:ss a');
+var cityKey = 0;
 var lattitude;
 var longitude;
+var cityNameList;
+ 
 
 var apiKey = "e66db7319dc01000529ad3640c6a3281";
 
@@ -56,6 +59,16 @@ var formCityName = function (event) {
 var displayWeather = function (city) {
     console.log(city)
 
+    var cityNameList = document.createElement('h2')
+    cityNameList.classList = " flex-row align-left";
+    
+    cityNameList.textContent = city.city.name;
+
+    cityListEl.append(cityNameList)
+   
+    
+    localStorage.setItem(cityKey, city.city.name);
+        cityKey = cityKey + 1;
    
     var iconImage = document.createElement('img')
     $("#image").append(iconImage)
@@ -91,47 +104,68 @@ var displayWeather = function (city) {
             response.json().then(function (secondFeed) {
                 // adds UV to top part of weather
                 var uvIndex = document.createElement('p')
-                uvIndex.textContent = "UV Index: " + secondFeed.current.uvi
+                uvIndex.textContent = "UV Index: " + parseInt(Math.floor(secondFeed.current.uvi))
+
+                // uv scale ranges from 0 to 11 as high
+                if (uvIndex <= 4) {
+                    uvIndex.classList.add("green")
+                } else if (uvIndex > 7) {
+                uvIndex.classList.add("red") 
+                } else {
+                    uvIndex.classList.add("green")
+                }
+
+           
+
                 $("#city-weather").append(uvIndex)
 
               
 
                
-                for (var i = 0; i < 6; i++) {
+                for (var i = 0; i < 5; i++) {
               
                     var divWeather = document.createElement('div')
+                    divWeather.classList.add("bg-primary",)
 
-                var fiveDayImage = document.createElement('img')
+                    var fiveDayImage = document.createElement('img')
                     fiveDayImage.src = "https://openweathermap.org/img/wn/" + secondFeed.daily[i].weather[0].icon + "@2x.png";
+                    
                     var clouds = document.createElement('p');
-                    clouds.textContent = "clouds: " + secondFeed.daily[i].clouds;
+                    clouds.setAttribute("width", "50px", "text-color:orange")
+                    clouds.textContent = "clouds: " + secondFeed.daily[i].clouds + "%";
+                    clouds.classList.add("temp")
+
                     var date = document.createElement('p')
+                    date.setAttribute("width", "50px")
                     date.textContent = moment.unix(secondFeed.daily[i].dt).format("MM/DD/YYYY");
+                    date.classList.add("temp")
+                   
                     var fiveDayTempLow = document.createElement('p')
+                    fiveDayTempLow.setAttribute("width", "50px")
+                    fiveDayTempLow.classList.add("temp")
                     fiveDayTempLow.textContent = "Low Temp: " + parseInt((((secondFeed.daily[i].temp.min) - 273.15) * (9 / 5)) + 32);
+                   
                     var fiveDayTempHigh = document.createElement('p')
-                    fiveDayTempHigh.textContent = "High Temp: " + parseInt((((secondFeed.daily[0].temp.max) - 273.15) * (9 / 5)) + 32)
+                    fiveDayTempHigh.setAttribute("width", "50px")
+                    fiveDayTempHigh.classList.add("temp")
+                    fiveDayTempHigh.textContent = "High Temp: " + parseInt((((secondFeed.daily[i].temp.max) - 273.15) * (9 / 5)) + 32)
+                   
+                    var dailyWeather = document.createElement('p');
+                    dailyWeather.classList.add("temp")
+                    dailyWeather.textContent = secondFeed.daily[i].weather[0].description
 
-                  
 
 
+                    divWeather.append(date, fiveDayImage, dailyWeather, clouds, fiveDayTempLow, fiveDayTempHigh)
 
-                    listGroupEl.append(divWeather, fiveDayImage, clouds, date, fiveDayTempLow, fiveDayTempHigh)
+                    listGroupEl.appendChild(divWeather)
+
+                    
                 };
-
-
-
-
-
-
-
-
-
 
                 //  var UvIndex = data.value;
                 console.log(secondFeed)
-                fiveDay(lat, lon);
-
+               
             });
         } else {
             alert("No Weather found");
@@ -144,11 +178,20 @@ var displayWeather = function (city) {
 
 }
 
+var cityListNames = function (){
 
-var fiveDay = function (lat, lon) {
-    console.log(lat, lon)
+     $("#cityListId").val(localStorage.getItem(JSON.stringify.city.city.name))
+//localStorage.setItem(localStorage.setItem(cityKey, city.city.name);
+alert("window what")
+
+
+  
+
 }
 
+
+
+cityListNames();
 
 // listens for a click on the form
 submitBtnEl.addEventListener('click', formCityName);
