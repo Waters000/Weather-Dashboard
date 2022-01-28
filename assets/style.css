@@ -6,3 +6,7 @@
     color: gold;
     font-size: 23px;
 }
+
+.inline {
+   display: inline-block;
+}
