@@ -10,7 +10,7 @@ var citySearch = document.getElementById('city-search-term');
 var image = document.getElementById('image');
 var listGroupEl = document.querySelector(".list-group")
 var cityListEl = document.querySelector(".city-list")
-var divblockEl = document.getElementById('divblock');
+
 
 
 var currentMomentkey = moment().format('h:mm:ss a');
@@ -18,6 +18,8 @@ var cityKey = 0;
 var lattitude;
 var longitude;
 var cityNameList;
+var city;
+var cityArr = [];
  
 
 var apiKey = "e66db7319dc01000529ad3640c6a3281";
@@ -63,16 +65,18 @@ var displayWeather = function (city) {
 
 
    // console.log(city)
-
+    /// adds city under the search list.
     var cityNameList = document.createElement('h2')
     cityNameList.classList = " flex-row align-left";
     
     cityNameList.textContent = city.city.name;
-
     cityListEl.append(cityNameList)
-   
+  
     
-    localStorage.setItem(cityKey, city.city.name);
+    cityArr.push(city.city.name)
+    
+    localStorage.setItem("city-search", JSON.stringify(cityArr));
+
         cityKey = cityKey + 1;
    
     var iconImage = document.createElement('img')
@@ -185,9 +189,29 @@ var displayWeather = function (city) {
 
 var cityListNames = function (){
 
-   $(".city-list").val(localStorage.getItem(JSON.city.city.name))
+   var cityArr = (JSON.parse(localStorage.getItem("city-search")))
+
+    for (var i = 0; i < cityArr.length; i++){
+        var citiesListpast = document.createElement('h2');
+        citiesListpast.classList = " flex-row align-left";
+        citiesListpast.textContent = cityArr[i];
+        console.log(citiesListpast)
+        
+       $(".city-list").append(citiesListpast)
+    }
+
+    // var cityNameList = document.createElement('h2')
+    // cityNameList.classList = " flex-row align-left";
+    
+    // cityNameList.textContent = city.city.name;
+    // cityListEl.append(cityNameList)
+
+
+  
+
+  // $("#city-list").val(localStorage.getItem("cityKey"))
 //localStorage.setItem(localStorage.setItem(cityKey, city.city.name);
-alert("window what")
+
 
 
   
