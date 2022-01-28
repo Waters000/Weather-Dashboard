@@ -57,7 +57,12 @@ var formCityName = function (event) {
 }
 
 var displayWeather = function (city) {
-    console.log(city)
+
+
+  
+
+
+   // console.log(city)
 
     var cityNameList = document.createElement('h2')
     cityNameList.classList = " flex-row align-left";
@@ -180,7 +185,7 @@ var displayWeather = function (city) {
 
 var cityListNames = function (){
 
-     $("#cityListId").val(localStorage.getItem(JSON.stringify.city.city.name))
+   $(".city-list").val(localStorage.getItem(JSON.city.city.name))
 //localStorage.setItem(localStorage.setItem(cityKey, city.city.name);
 alert("window what")
 
