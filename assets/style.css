@@ -59,3 +59,26 @@
 .none {
     display: none;
 }
+.bg {
+    background-color: black;
+    width: auto;
+}
+.none {
+    display: none;
+}
+
+.current-weather {
+    width: 100%;
+    background-color: chartreuse;
+}
+
+.city-weather {
+    width: 100%;
+}
+
+.five-day {
+    background-color: blueviolet;
+}
+h2 {
+    font-size: 60px;
+}
