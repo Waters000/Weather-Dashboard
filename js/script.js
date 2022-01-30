@@ -57,6 +57,7 @@ var getWeather = function (city) {
 var cityListButton = function (event) {
 
     event.preventDefault();
+    // console to test click on button
     console.log(event.target.textContent)
 
     // city value is the event trigger from button
@@ -236,7 +237,7 @@ var cityListNames = function () {
 // pulling city names from local storage into empty array.
     var cityArr = (JSON.parse(localStorage.getItem("city-search")))
     // loops over the array
-    for (var i = 0; i < cityArr; i++) {
+    for (var i = 0; i < cityArr.length; i++) {
         // var for city name, adds H2 and button class
         var citiesListpast = document.createElement("h2");
         citiesListpast.classList.add("btn", "btn-dark", "mb-1", "w-100")
