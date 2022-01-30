@@ -134,7 +134,7 @@ var displayWeather = function (city) {
     windSpeed.textContent = "Wind Speed: " + parseInt(city.list[0].wind.speed) + " m/hr";
     // var to hold population
     var population = document.createElement('p')
-    population.textContent = "Population: " + (city.city.population).toLocaleString("en-US") + " People.";
+    population.textContent = "Population: " + (city.city.population).toLocaleString("en-US") + " People";
 
     // add all element to div - line 110
     currentWeatherDiv.append(cityName, iconImage, temperature, humidity, windSpeed, population)
@@ -222,7 +222,7 @@ var displayWeather = function (city) {
                 };
 
                 //  check console log to confirm second feed works
-               // console.log(secondFeed)
+              // console.log(secondFeed)
             });
         } else {
             alert("No Weather found");

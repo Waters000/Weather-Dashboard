@@ -1,5 +1,20 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+
+
+.header {
+        font-size: 50px;
+        margin: 0px 0px 0px 0px;
+        width: 100%;
+        background-color: #FA8BFF;
+        background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+        transition: all .5s ease-out;
+        background-size: 1px 100px;
+        background-position: 0 -10px;
 }
 
 .list-weather {
@@ -21,7 +36,7 @@
 .list-group p {
     text-align: center;
     width: 200px;
-    font-size: 30px;    
+    font-size: 20px;    
 }
 
 .list-group img {
@@ -39,7 +54,7 @@
 .list-group div {
     text-align: center;
     width: 210px;
-    margin: 25px;
+    margin: 15px;
     border: 5px solid orange;
     
 }
@@ -80,5 +95,5 @@
     background-color: blueviolet;
 }
 h2 {
-    font-size: 60px;
+    font-size: 40px;
 }
