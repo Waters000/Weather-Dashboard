@@ -237,7 +237,14 @@ var cityListNames = function () {
 // pulling city names from local storage into empty array.
     var cityArr = (JSON.parse(localStorage.getItem("city-search")))
     // loops over the array
+    
+    if ( !cityArr) {
+        console.log("no arrays")
+      } else {
+    
     for (var i = 0; i < cityArr.length; i++) {
+
+       
         // var for city name, adds H2 and button class
         var citiesListpast = document.createElement("h2");
         citiesListpast.classList.add("btn", "btn-dark", "mb-1", "w-100")
@@ -252,6 +259,7 @@ var cityListNames = function () {
         // added city list with JQuery
         $(".city-list").append(citiesListpast)
     }
+}
 }
 
 // start screen by running cityList to show previous storage cities
