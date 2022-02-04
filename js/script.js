@@ -37,7 +37,7 @@ var getWeather = function (city) {
         if (response.ok) {
             response.json().then(function (city) {
                 // console log to test response feed is working
-                //  console.log(response)
+                // console.log(response)
                 //when working, run displayWeather function
                 displayWeather(city);
 
@@ -91,7 +91,7 @@ var displayWeather = function (city) {
     cityWeatherEl.innerHTML = "";
     listGroupEl.innerHTML = "";
 
-    // console.log(city)
+     //console.log(city)
     /// adds city under the search list.
     var cityNameList = document.createElement('button')
     cityNameList.classList = " btn btn-dark mb-1 w-100";
@@ -120,6 +120,15 @@ var displayWeather = function (city) {
     var cityName = document.createElement('h2')
     cityName.classList = " flex-row align-left";
     cityName.textContent = city.city.name;
+
+     var cityDate = document.createElement('h3')
+     cityDate.classList = "";
+     cityDate.textContent = moment.unix(city.list[0].dt).format("MM/DD/YYYY");
+
+     
+
+
+    
     // var to hold image
     var iconImage = document.createElement('img')
     iconImage.src = "https://openweathermap.org/img/wn/" + city.list[0].weather[0].icon + "@4x.png";
@@ -137,7 +146,7 @@ var displayWeather = function (city) {
     population.textContent = "Population: " + (city.city.population).toLocaleString("en-US") + " People";
 
     // add all element to div - line 110
-    currentWeatherDiv.append(cityName, iconImage, temperature, humidity, windSpeed, population)
+    currentWeatherDiv.append(cityName, cityDate, iconImage, temperature, humidity, windSpeed, population)
     // add div to dom Element - from HTML
     cityWeatherEl.append(currentWeatherDiv)
 
@@ -181,7 +190,7 @@ var displayWeather = function (city) {
                 }
 
                 // For loop to run weather for 5 days
-                for (var i = 0; i < 5; i++) {
+                for (var i = 1; i < 6; i++) {
                     // sets the 5 day weather div for each day
                     var divWeather = document.createElement('div')
                     divWeather.classList.add("bg-primary",)
@@ -213,16 +222,23 @@ var displayWeather = function (city) {
                     dailyWeather.classList.add("temp")
                     dailyWeather.textContent = secondFeed.daily[i].weather[0].description
 
+                    var humidity = document.createElement('p');
+                    humidity.classList.add("temp");
+                    humidity.textContent = "Humidity: " + secondFeed.daily[i].humidity + "%";
+
+                    var windSpeed = document.createElement('p')
+                    windSpeed.classList.add("temp");
+                    windSpeed.textContent = "Wind: " + secondFeed.daily[i].wind_speed + "mph"
 
                     // adds 5 day elements to div
-                    divWeather.append(date, fiveDayImage, dailyWeather, clouds, fiveDayTempLow, fiveDayTempHigh)
+                    divWeather.append(date, fiveDayImage,  dailyWeather, humidity, windSpeed, clouds, fiveDayTempLow, fiveDayTempHigh)
                     // add div to DOM attached to HTML.
                     listGroupEl.appendChild(divWeather)
 
                 };
 
                 //  check console log to confirm second feed works
-              // console.log(secondFeed)
+               console.log(secondFeed)
             });
         } else {
             alert("No Weather found");
@@ -238,6 +254,8 @@ var cityListNames = function () {
     var cityArr = (JSON.parse(localStorage.getItem("city-search")))
     // loops over the array
     
+
+    // bug fix...if no array in local storage, would throw error and not load.
     if ( !cityArr) {
         console.log("no arrays")
       } else {
@@ -251,7 +269,7 @@ var cityListNames = function () {
         citiesListpast.textContent = cityArr[i];
 
         // console log to test if cities list past is pulling in
-        //console.log(citiesListpast)
+      //  console.log(citiesListpast)
 
         // sets attribute for onclick, run event function so buttons load
         citiesListpast.setAttribute("onClick", "cityListButton(event)")
